@@ -4,10 +4,10 @@ import { useState } from "react";
 
 const findings = [
   {
-    org: "wolfSSL",
+    org: "wolfSSL ML-DSA",
     cwe: "CWE-190",
     severity: "HIGH",
-    desc: "Integer overflow in RSA key generation — Z3 SAT proof",
+    desc: "11 overflows in ML-DSA (FIPS 204/205) — FIPS 140-3 certified post-quantum signatures — 32-bit targets",
     logo: "🔐",
   },
   {
@@ -350,7 +350,7 @@ export default function Home() {
           <div className="space-y-1 text-[#7788bb]">
             <div>
               <span className="text-[#6677aa]">
-                # CWE-190: Integer overflow in wolfSSL rsa_keygen
+                # CWE-190: wolfSSL ML-DSA (FIPS 204) — dilithium.c:2196 — post-quantum sig
               </span>
             </div>
             <div>
@@ -360,19 +360,20 @@ export default function Home() {
               {"()"}
             </div>
             <div>
-              <span className="text-[#3370ff]">key_size</span>
+              <span className="text-[#3370ff]">a</span>
               {" = "}
               <span className="text-[#60a5fa]">z3.BitVec</span>
               {"("}
-              <span className="text-[#a5f3a5]">&apos;key_size&apos;</span>
-              {", 32)"}
+              <span className="text-[#a5f3a5]">&apos;coeff&apos;</span>
+              {", 32)  "}
+              <span className="text-[#6677aa]"># ML-DSA-44 coefficient</span>
             </div>
             <div>
               <span className="text-[#3370ff]">s</span>
-              {".add(key_size * 8 > "}
-              <span className="text-[#f9a8d4]">0xFFFFFFFF</span>
-              {")   "}
-              <span className="text-[#6677aa]"># overflow condition</span>
+              {".add(a >= 0, a << 10 > "}
+              <span className="text-[#f9a8d4]">0x7FFFFFFF</span>
+              {")  "}
+              <span className="text-[#6677aa]"># signed overflow</span>
             </div>
             <div className="mt-2">
               <span className="text-[#60a5fa]">result</span>
@@ -383,7 +384,7 @@ export default function Home() {
               <span className="text-white">sat</span>
               {"  "}
               <span className="text-[#28c840]">
-                # ✓ Proven exploitable — CWE-190 CONFIRMED
+                # ✓ FIPS 140-3 certified PQC — CWE-190 CONFIRMED
               </span>
             </div>
           </div>
